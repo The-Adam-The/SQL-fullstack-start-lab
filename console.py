@@ -1,21 +1,33 @@
 import pdb 
 from models.task import Task
-import repositories.task_repository as task_repository  
+from models.user import User
 
+import repositories.task_repository as task_repository
+import repositories.user_repository as user_respository
+
+user_respository.delete_all()
 task_repository.delete_all()
 
-task1 = Task("Go for a run", "Jack Jarvis", 20)
-task2 = Task("Eat cake", "Marie Antoinette", 10)
+user_1 = User("Jack", "Jarvis")
+user_respository.save(user_1)
 
-task_repository.save(task1)
-task_repository.save(task2)
+user_2 = User("Victor", "McDade")
+user_respository.save(user_2)
 
-task1.mark_complete()
-task2.mark_complete()
+users = user_respository.select_all()
 
-result = task_repository.select_all()
+task = Task("Walk the dog", user_1, 60)
+task_repository.save(task)
 
-for task in result:
-    print(task.__dict__)
+tasks_of_user_1 = task_repository.task_for_user(user_1)
+
+print(tasks_of_user_1[0].description)
+
+
+# for user in users:
+#     print(user.__dict__)
+
+# for task in result:
+#     print(task.__dict__)
 
 pdb.set_trace()

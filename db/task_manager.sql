@@ -11,5 +11,6 @@ CREATE TABLE tasks (
   id SERIAL PRIMARY KEY,
   description VARCHAR(255),
   duration INT,
-  completed BOOLEAN DEFAULT FALSE
+  completed BOOLEAN DEFAULT FALSE,
+  user_id INT REFERENCES users(id)
 );
